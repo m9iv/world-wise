@@ -16,4 +16,6 @@ You can visit the [DEMO](https://m9iv.github.io/kzaviryukha.github.io/demo/world
 
 ### `npm run dev`
 
+### `npm run server`
+
 ### `npm run build`
