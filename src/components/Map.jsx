@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   MapContainer,
@@ -8,17 +9,18 @@ import {
   useMapEvents,
 } from 'react-leaflet'
 
-import { useEffect, useState } from 'react'
-import styles from './Map.module.css'
 import Button from '../components/Button'
-import { useCities } from '../contexts/CitiesContext'
-import { useGeolocation } from '../hooks/useGeolocation'
 
+import { useCities } from '../contexts/CitiesContext'
+
+import { useGeolocation } from '../hooks/useGeolocation'
 import { useUrlPosition } from '../hooks/useUrlPosition'
+
+import styles from './Map.module.css'
 
 function Map() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [mapPosition, setMapPosition] = useState([40, 0])
+  const [mapPosition, setMapPosition] = useState([45, 15])
 
   const [mapLat, mapLng] = useUrlPosition()
   const { cities } = useCities()
@@ -54,7 +56,7 @@ function Map() {
       <MapContainer
         className={styles.map}
         center={mapPosition}
-        zoom={9}
+        zoom={5}
         scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -64,6 +66,7 @@ function Map() {
         {cities.map((city) => (
           <Marker
             key={city.id}
+            title={city.cityName}
             position={[city.position.lat, city.position.lng]}>
             <Popup>
               <span>{city.emoji}</span>
